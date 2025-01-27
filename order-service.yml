@@ -1,0 +1,40 @@
+# Server Configuration
+server:
+  port: 8085  # Port on which the service will run
+
+# Spring Configuration
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://nandhithap2018:1234@cluster0.twyzr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0  # MongoDB URI
+      database: OrderService  # Database name
+  application:
+    name: order-service  # Name of the application
+  cloud:
+    discovery:
+      client:
+        service-url:
+          defaultZone: http://localhost:8761/eureka/  # Eureka Server URL
+        register-with-eureka: true
+        fetch-registry: true
+      instance:
+        lease-expiration-duration-in-seconds: 30  # Lease expiration duration
+        lease-renewal-interval-in-seconds: 15  # Lease renewal interval
+
+# Logging Configuration
+logging:
+  level: 
+    root: INFO  # Root logging level
+    com.bookstore: DEBUG  # Logging level for the bookstore package
+
+# Notification Service Configuration
+notification:
+  service-url: http://localhost:9090/api/notifications  # Notification service URL
+
+# User Service Configuration
+user:
+  service-url: http://localhost:8083/api/users/user/  # User service URL
+
+# Book Service Configuration
+book:
+  service-url: http://localhost:8082/api/books/byId/  # Book service URL
