@@ -14,6 +14,10 @@ spring:
   application:
     name: book-service  
 
+  cloud:
+    config:
+      uri: http://localhost:8888  # URL of the Config Server
+
 # Server Configuration
 server:
   port: 8082 
@@ -28,3 +32,11 @@ eureka:
   instance:
     lease-expiration-duration-in-seconds: 30  # Lease expiration duration
     lease-renewal-interval-in-seconds: 15  # Lease renewal interval
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG  # Enable DEBUG logging for web requests
+    org.hibernate.SQL: DEBUG  # Enable DEBUG logging for SQL statements
+    org.hibernate.type: TRACE  # Enable TRACE logging for SQL parameter binding
