@@ -1,0 +1,46 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: book-service
+          uri: http://localhost:8082/   # Use the registered service name
+          predicates:
+            - Path=/api/books/**
+        - id: order-service
+          uri: http://localhost:8085/ # Use the registered service name
+          predicates:
+            - Path=/orders/**
+        - id: user-service
+          uri: http://localhost:8083/ # Use the registered service name
+          predicates:
+            - Path=/api/users/**
+        - id: notification-service
+          uri: http://localhost:9090/  # Use the registered service name
+          predicates:
+            - Path=/api/notifications/**  # Adjust this path as needed
+        - id: discovery-service
+          uri: http://localhost:8761/ # Direct access to Eureka
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+        - id: discoveryservice-static
+          uri: http://localhost:8761/  # Static access to Eureka
+          predicates:
+            - Path=/eureka/**
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionLocator: INFO
+    org.springframework.cloud.gateway: DEBUG
